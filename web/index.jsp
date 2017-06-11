@@ -32,7 +32,8 @@
 <body>
 <%
     Statement stmt = conn.createStatement(); // 쿼리를 입력할 수 있는 변수 선언
-    ResultSet rs = stmt.executeQuery("SELECT * FROM schedule NATURAL JOIN movie NATURAL JOIN theater NATURAL JOIN movie_type LIMIT 4 OFFSET " + (currentPage - 1) * 4); // schedule 테이블의 모든 데이터를 4개씩 끊어서 가져오는 쿼리 실행 후 결과 저장
+    ResultSet rs = stmt.executeQuery("SELECT * FROM schedule NATURAL JOIN movie NATURAL JOIN theater NATURAL JOIN movie_type ORDER BY schedule_id ASC LIMIT 4 OFFSET " + (currentPage - 1) * 4); // schedule 테이블의 모든 데이터를 4개씩 끊어서 가져오는 쿼리 실행 후 결과 저장
+
 %>
 <div class="container">
     <div>
