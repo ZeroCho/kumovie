@@ -12,19 +12,22 @@ public class Schedule {
     private Date date;
     private Date time;
     private String type;
+    private Movie movie;
 
     public Schedule(int scheduleId,
                     int movieId,
                     int theraterId,
                     Date date,
                     Date time,
-                    String type) {
+                    String type,
+                    Movie movie) {
         this.scheduleId = scheduleId;
         this.movieId = movieId;
         this.theraterId = theraterId;
         this.date = date;
         this.time = time;
         this.type = type;
+        this.movie = movie;
     }
 
     public int getScheduleId() {
@@ -73,5 +76,13 @@ public class Schedule {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

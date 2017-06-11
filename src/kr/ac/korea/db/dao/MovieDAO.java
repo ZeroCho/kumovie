@@ -15,7 +15,7 @@ public class MovieDAO {
         Connection conn = Database.getConnection();
         if (conn != null) {
             try {
-                PreparedStatement stmt = conn.prepareStatement("INSERT INTO movie" +
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO movie " +
                         "(movie_id, title, director, genre, rating, playdate, runtime) " +
                         "VALUES(?,?,?,?,?,?,?)");
                 stmt.setInt(1, movie.getMovieId());
