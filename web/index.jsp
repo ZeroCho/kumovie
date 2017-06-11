@@ -7,7 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="static java.lang.Integer.parseInt" %>
 <%
+    int currentPage = 1; // 현재 페이지를 1로
+    if (request.getParameter("page") != "") { // 현재 페이지 값이 주소 쿼리스트링에 있으면
+        currentPage = parseInt(request.getParameter("page")); // 그 값을 현재 페이지로
+    }
     Connection conn = null; // DriverManager를 저장할 변수 선언
     try {
         String url = "jdbc:mysql://localhost:3306/movie_reservation_system?useSSL=false"; // 사용하려는 데이터베이스명을 포함한 URL 기술
@@ -27,15 +32,15 @@
 <body>
 <%
     Statement stmt = conn.createStatement(); // 쿼리를 입력할 수 있는 변수 선언
-    ResultSet rs = stmt.executeQuery("SELECT * FROM schedule NATURAL JOIN movie NATURAL JOIN theater NATURAL JOIN movie_type"); // schedule 테이블의 모든 데이터를 가져오는 쿼리 실행 후 결과 저장
+    ResultSet rs = stmt.executeQuery("SELECT * FROM schedule NATURAL JOIN movie NATURAL JOIN theater NATURAL JOIN movie_type LIMIT 4 OFFSET " + (currentPage - 1) * 4); // schedule 테이블의 모든 데이터를 4개씩 끊어서 가져오는 쿼리 실행 후 결과 저장
 %>
 <div class="container">
     <div>
         <div class="page-header">
             <h1>상영 목록</h1>
         </div>
-        <button class="btn btn-default">이전</button>
-        <button class="btn btn-default pull-right">다음</button>
+        <button class="btn btn-default schedule-prev">이전</button>
+        <button class="btn btn-default pull-right schedule-next">다음</button>
         <table class="table table-bordered">
             <tr>
                 <th>선택</th>
@@ -274,7 +279,18 @@
         console.log($('button.schedule-menu'), $(this), index);
         $('form.schedule-menu').addClass('hidden');
         $('form.schedule-menu').eq(index).toggleClass('hidden');
-    })
+    });
+
+    var currentPage = parseInt("<%= currentPage %>", 10) || 1;
+    $('.schedule-prev').on('click', function() { // 스케줄 테이블 이전 4개 보기
+        if (currentPage === 1) { // 이미 첫 페이지면
+            return false;
+        }
+        location.href="/index.jsp?page=" + (currentPage - 1);
+    });
+    $('.schedule-next').on('click', function() { // 스케줄 테이블 다음 4개 보기
+        location.href="/index.jsp?page=" + (currentPage + 1);
+    });
 </script>
 </body>
 </html>
