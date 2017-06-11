@@ -211,15 +211,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="title" class="col-sm-2 control-label">영화제목</label>
+            <label for="scheduleId" class="col-sm-2 control-label">스케줄 ID</label>
             <div class="col-sm-10">
-                <input type="text" name="title" id="title" class="form-control">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="time" class="col-sm-2 control-label">상영시간</label>
-            <div class="col-sm-10">
-                <input type="text" name="time" id="time" class="form-control">
+                <input type="text" name="scheduleId" id="scheduleId" class="form-control">
             </div>
         </div>
         <div class="form-group text-center">

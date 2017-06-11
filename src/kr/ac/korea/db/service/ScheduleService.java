@@ -2,6 +2,7 @@ package kr.ac.korea.db.service;
 
 import kr.ac.korea.db.dao.ScheduleDAO;
 import kr.ac.korea.db.model.Schedule;
+import kr.ac.korea.db.util.DateUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,8 +29,8 @@ public class ScheduleService {
                             String timeString,
                             String type) {
 
-        Date date = getDate(dateString);
-        Date time = getTime(timeString);
+        Date date = DateUtil.getDate(dateString);
+        Date time = DateUtil.getTime(timeString);
         int scheduleId = scheduleDAO.getPK() + 1;
         Schedule schedule = new Schedule(scheduleId, movieId, theraterId, date, time, type, null);
         scheduleDAO.insertSchedule(schedule);
@@ -46,8 +47,8 @@ public class ScheduleService {
                                    String timeString,
                                    String type) {
 
-        Date date = getDate(dateString);
-        Date time = getTime(timeString);
+        Date date = DateUtil.getDate(dateString);
+        Date time = DateUtil.getTime(timeString);
 
         return updateSchedule(new Schedule(scheduleId, movieId, theraterId, date, time, type, null));
     }
@@ -58,35 +59,13 @@ public class ScheduleService {
                                          String dateString,
                                          String timeString) {
 
-        Date date = getDate(dateString);
-        Date time = getTime(timeString);
+        Date date = DateUtil.getDate(dateString);
+        Date time = DateUtil.getTime(timeString);
         return scheduleDAO.searchSchedule(movieName, type, date, time);
     }
 
 
     public boolean deleteSchedule(int scheduleId) {
         return scheduleDAO.deleteSchedule(scheduleId) == 1;
-    }
-
-    private Date getDate(String dateString) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-
-    private Date getTime(String timeString) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        Date time = null;
-        try {
-            time = timeFormat.parse(timeString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return time;
     }
 }

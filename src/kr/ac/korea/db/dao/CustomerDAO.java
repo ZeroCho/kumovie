@@ -16,7 +16,7 @@ public class CustomerDAO {
         Customer customer = null;
         if (conn != null) {
             try {
-                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customer WHERE id=?");
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customer WHERE customer_id=?");
                 stmt.setString(1, id);
                 ResultSet result = stmt.executeQuery();
                 // 결과가 있으면 customer 생성
