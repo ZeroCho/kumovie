@@ -10,7 +10,7 @@
 <%@ page import="static java.lang.Integer.parseInt" %>
 <%
     int currentPage = 1; // 현재 페이지를 1로
-    if (request.getParameter("page") != "") { // 현재 페이지 값이 주소 쿼리스트링에 있으면
+    if (request.getParameter("page") != null && request.getParameter("page") != "") { // 현재 페이지 값이 주소 쿼리스트링에 있으면
         currentPage = parseInt(request.getParameter("page")); // 그 값을 현재 페이지로
     }
     Connection conn = null; // DriverManager를 저장할 변수 선언
@@ -102,41 +102,35 @@
             <button class="btn btn-inverse">검색</button>
         </form>
         <button class="btn btn-primary schedule-menu">스케줄 추가</button>
-        <form class="hidden schedule-menu" action="addSchedule.jsp">
+        <form class="hidden schedule-menu" method="post" action="addSchedule.jsp">
             <div class="form-group">
-                <label for="add-title" class="col-sm-2 control-label">영화명</label>
+                <label for="add-title" class="col-sm-2 control-label">영화 ID</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="add-title" class="form-control">
+                    <input type="text" name="add-movieid" id="add-title" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="add-director" class="col-sm-2 control-label">영화감독</label>
+                <label for="add-director" class="col-sm-2 control-label">상영관</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="add-director" class="form-control">
+                    <input type="text" name="add-theaterid" id="add-director" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="add-genre" class="col-sm-2 control-label">장르</label>
+                <label for="add-genre" class="col-sm-2 control-label">날짜</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="add-genre" class="form-control">
+                    <input type="text" name="add-date" id="add-genre" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="add-rating" class="col-sm-2 control-label">등급</label>
+                <label for="add-rating" class="col-sm-2 control-label">시간</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="add-rating" class="form-control">
+                    <input type="text" name="add-time" id="add-rating" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="add-playdate" class="col-sm-2 control-label">개봉일</label>
+                <label for="add-playdate" class="col-sm-2 control-label">영화종류</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="add-playdate" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="add-runtime" class="col-sm-2 control-label">상영시간</label>
-                <div class="col-sm-10">
-                    <input type="text" name="search-name" id="add-runtime" class="form-control">
+                    <input type="text" name="add-type" id="add-playdate" class="form-control">
                 </div>
             </div>
             <button class="btn btn-inverse">추가</button>
