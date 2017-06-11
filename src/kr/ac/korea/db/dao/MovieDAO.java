@@ -38,6 +38,58 @@ public class MovieDAO {
         }
     }
 
+    public Movie updateMovie(Movie movie) {
+        Connection conn = Database.getConnection();
+        if (conn != null) {
+            try {
+                PreparedStatement stmt = conn.prepareStatement("UPDATE movie SET " +
+                        "title = ?, director = ?, genre = ?, rating = ?, playdate = ?, runtime = ? " +
+                        "WHERE movie_id = ?");
+                stmt.setString(1, movie.getTitle());
+                stmt.setString(2, movie.getDirector());
+                stmt.setString(3, movie.getGenre());
+                stmt.setInt(4, movie.getRating());
+                stmt.setDate(5, new java.sql.Date(movie.getPlaydate().getTime()));
+                stmt.setInt(6, movie.getRuntime());
+                stmt.setInt(7, movie.getMovieId());
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                movie = null;
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    movie = null;
+                }
+            }
+        }
+        return movie;
+    }
+
+    public int deleteMovie(int movieId) {
+
+        Connection conn = Database.getConnection();
+        if (conn != null) {
+            try {
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM movie " +
+                        "WHERE movie_id = ?");
+                stmt.setInt(1, movieId);
+                return stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 0;
+    }
+
     public List<Movie> getMovieList(int limit, int offset) {
         Connection conn = Database.getConnection();
         List<Movie> movieList = new ArrayList<Movie>();

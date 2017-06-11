@@ -52,6 +52,18 @@
                     15,
                     "2017-06-11",
                     120);
+            // id에 해당하는 movie update
+            movieService.updateMovie(
+                    20,
+                    "테스트",
+                    "감독테스트",
+                    "장르테스트",
+                    19,
+                    "2017-06-12",
+                    180);
+
+            // id에 해당하는 movie delete
+            movieService.deleteMovie(10);
         %>
     </table>
     <form action="reserve.jsp" method="post" class="form-horizontal">

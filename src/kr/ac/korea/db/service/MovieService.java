@@ -39,4 +39,29 @@ public class MovieService {
             e.printStackTrace();
         }
     }
+
+    public Movie updateMovie(Movie movie) {
+        return movieDAO.updateMovie(movie);
+    }
+
+    public Movie updateMovie(int movieId,
+                             String title,
+                             String director,
+                             String genre,
+                             int rating,
+                             String dateString,
+                             int runtime) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return updateMovie(new Movie(movieId, title, director, genre, rating, date, runtime));
+    }
+
+    public boolean deleteMovie(int movieId) {
+        return movieDAO.deleteMovie(movieId) == 1;
+    }
 }
