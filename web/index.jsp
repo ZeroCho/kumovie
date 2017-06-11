@@ -16,7 +16,6 @@
 
         Class.forName("com.mysql.jdbc.Driver"); // 데이터베이스와 연동하기 위해 DriverManager에 등록한다.
         conn = DriverManager.getConnection(url, id, pw);  // DriverManager 객체로부터 Connection 객체를 얻어온다.
-        out.println("제대로 연결되었습니다."); // 커넥션이 제대로 연결되면 수행된다.
 %>
 <html>
 <head>
@@ -28,7 +27,7 @@
 <body>
 <%
     Statement stmt = conn.createStatement(); // 쿼리를 입력할 수 있는 변수 선언
-    ResultSet rs = stmt.executeQuery("select * from schedule NATURAL JOIN movie NATURAL JOIN theater NATURAL JOIN movie_type"); // movie 테이블의 모든 데이터를 가져오는 쿼리 실행 후 결과 저장
+    ResultSet rs = stmt.executeQuery("SELECT * FROM schedule NATURAL JOIN movie NATURAL JOIN theater NATURAL JOIN movie_type"); // schedule 테이블의 모든 데이터를 가져오는 쿼리 실행 후 결과 저장
 %>
 <div class="container">
     <div>
@@ -52,23 +51,31 @@
             <%
                 while (rs.next()) {
             %>
-                <tr>
-                    <th><input type="checkbox" data-value="<%= rs.getInt("schedule_id") %>"></th>
-                    <th><%= rs.getInt("schedule_id") %></th>
-                    <th><%= rs.getString("title") %></th>
-                    <th><%= rs.getString("director") %></th>
-                    <th><%= rs.getString("genre") %></th>
-                    <th><%= rs.getDate("date") %></th>
-                    <th><%= rs.getTime("time") %></th>
-                    <th><%= rs.getInt("seat_num") %></th>
-                    <th><%= rs.getInt("price") %></th>
-                </tr>
+            <tr>
+                <td><input type="checkbox" data-value="<%= rs.getInt("schedule_id") %>"></td>
+                <td><%= rs.getInt("schedule_id") %>
+                </td>
+                <td><%= rs.getString("title") %>
+                </td>
+                <td><%= rs.getString("director") %>
+                </td>
+                <td><%= rs.getString("genre") %>
+                </td>
+                <td><%= rs.getDate("date") %>
+                </td>
+                <td><%= rs.getTime("time") %>
+                </td>
+                <td><%= rs.getInt("seat_num") %>
+                </td>
+                <td><%= rs.getInt("price") %>
+                </td>
+            </tr>
             <%
                 }
             %>
         </table>
-        <button class="btn btn-success movie-menu">영화 검색</button>
-        <form class="hidden movie-menu">
+        <button class="btn btn-success schedule-menu">스케줄 검색</button>
+        <form class="hidden schedule-menu">
             <div class="form-group">
                 <label for="search-name" class="col-sm-2 control-label">영화명</label>
                 <div class="col-sm-10">
@@ -89,8 +96,8 @@
             </div>
             <button class="btn btn-inverse">검색</button>
         </form>
-        <button class="btn btn-primary movie-menu">영화 추가</button>
-        <form class="hidden movie-menu" action="addMovie.jsp">
+        <button class="btn btn-primary schedule-menu">스케줄 추가</button>
+        <form class="hidden schedule-menu" action="addSchedule.jsp">
             <div class="form-group">
                 <label for="add-title" class="col-sm-2 control-label">영화명</label>
                 <div class="col-sm-10">
@@ -129,8 +136,8 @@
             </div>
             <button class="btn btn-inverse">추가</button>
         </form>
-        <button class="btn btn-warning movie-menu">영화 수정</button>
-        <form class="hidden movie-menu" action="updateMovie.jsp">
+        <button class="btn btn-warning schedule-menu">스케줄 수정</button>
+        <form class="hidden schedule-menu" action="updateSchedule.jsp">
             <div class="form-group">
                 <label for="update-id" class="col-sm-2 control-label">영화 아이디</label>
                 <div class="col-sm-10">
@@ -175,8 +182,8 @@
             </div>
             <button class="btn btn-inverse">수정</button>
         </form>
-        <button class="btn btn-danger movie-menu">영화 제거</button>
-        <form class="hidden movie-menu" action="removeMovie.jsp">
+        <button class="btn btn-danger schedule-menu">스케줄 제거</button>
+        <form class="hidden schedule-menu" action="removeSchedule.jsp">
             <div class="form-group">
                 <label for="remove-id" class="col-sm-2 control-label">영화 아이디</label>
                 <div class="col-sm-10">
@@ -222,14 +229,36 @@
     <div class="page-header">
         <h1>예매내역</h1>
     </div>
+    <%
+        stmt = conn.createStatement(); // 쿼리를 입력할 수 있는 변수 재선언
+        rs = stmt.executeQuery("SELECT * FROM reservation NATURAL JOIN schedule NATURAL JOIN customer NATURAL JOIN movie"); // reservation 테이블의 모든 데이터를 가져오는 쿼리 실행 후 결과 저장
+    %>
     <table class="table table-bordered">
         <tr>
             <th>예매자</th>
-            <th>고객등급</th>
             <th>영화제목</th>
-            <th>상영시간</th>
+            <th>날짜</th>
+            <th>시간</th>
             <th>좌석번호</th>
         </tr>
+        <%
+            while (rs.next()) {
+        %>
+        <tr>
+            <td><%= rs.getString("name")%>
+            </td>
+            <td><%= rs.getString("title")%>
+            </td>
+            <td><%= rs.getDate("date")%>
+            </td>
+            <td><%= rs.getTime("time")%>
+            </td>
+            <td><%= rs.getInt("reservation_order")%>
+            </td>
+        </tr>
+        <%
+            }
+        %>
     </table>
 </div>
 <script
@@ -240,11 +269,11 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 <script>
-    $('button.movie-menu').on('click', function () {
-        var index = $('button.movie-menu').index(this);
-        console.log($('button.movie-menu'), $(this), index);
-        $('form.movie-menu').addClass('hidden');
-        $('form.movie-menu').eq(index).toggleClass('hidden');
+    $('button.schedule-menu').on('click', function () {
+        var index = $('button.schedule-menu').index(this);
+        console.log($('button.schedule-menu'), $(this), index);
+        $('form.schedule-menu').addClass('hidden');
+        $('form.schedule-menu').eq(index).toggleClass('hidden');
     })
 </script>
 </body>
