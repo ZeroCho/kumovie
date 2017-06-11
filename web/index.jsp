@@ -136,57 +136,51 @@
             <button class="btn btn-inverse">추가</button>
         </form>
         <button class="btn btn-warning schedule-menu">스케줄 수정</button>
-        <form class="hidden schedule-menu" action="updateSchedule.jsp">
+        <form class="hidden schedule-menu" method="post" action="updateSchedule.jsp">
             <div class="form-group">
-                <label for="update-id" class="col-sm-2 control-label">영화 아이디</label>
+                <label for="update-id" class="col-sm-2 control-label">스케줄 ID</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="update-id" class="form-control">
+                    <input type="text" name="update-scheduleid" id="update-id" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="update-title" class="col-sm-2 control-label">영화명</label>
+                <label for="update-title" class="col-sm-2 control-label">영화 ID</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="update-title" class="form-control">
+                    <input type="text" name="update-movieid" id="update-title" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="update-director" class="col-sm-2 control-label">영화감독</label>
+                <label for="update-director" class="col-sm-2 control-label">상영관 ID</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="update-director" class="form-control">
+                    <input type="text" name="update-theaterid" id="update-director" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="update-genre" class="col-sm-2 control-label">장르</label>
+                <label for="update-genre" class="col-sm-2 control-label">날짜</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="update-genre" class="form-control">
+                    <input type="text" name="update-date" id="update-genre" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="update-rating" class="col-sm-2 control-label">등급</label>
+                <label for="update-rating" class="col-sm-2 control-label">시간</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="update-rating" class="form-control">
+                    <input type="text" name="update-time" id="update-rating" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label for="update-playdate" class="col-sm-2 control-label">개봉일</label>
+                <label for="update-playdate" class="col-sm-2 control-label">영화종류</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="update-playdate" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="update-runtime" class="col-sm-2 control-label">상영시간</label>
-                <div class="col-sm-10">
-                    <input type="text" name="search-name" id="update-runtime" class="form-control">
+                    <input type="text" name="update-type" id="update-playdate" class="form-control">
                 </div>
             </div>
             <button class="btn btn-inverse">수정</button>
         </form>
         <button class="btn btn-danger schedule-menu">스케줄 제거</button>
-        <form class="hidden schedule-menu" action="removeSchedule.jsp">
+        <form class="hidden schedule-menu" method="post" action="removeSchedule.jsp">
             <div class="form-group">
-                <label for="remove-id" class="col-sm-2 control-label">영화 아이디</label>
+                <label for="remove-id" class="col-sm-2 control-label">스케줄 아이디</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="remove-id" class="form-control">
+                    <input type="text" name="remove-scheduleid" id="remove-id" class="form-control">
                 </div>
             </div>
             <button class="btn btn-inverse">제거</button>
