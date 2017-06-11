@@ -30,7 +30,8 @@
         </tr>
 
         <%
-            List<Movie> movieList = movieService.getMovieList(5, 0);
+            // limit, offset
+            List<Movie> movieList = movieService.getMovieList(20, 0);
             for (Movie movie : movieList) {
         %>
         <tr>
@@ -38,10 +39,19 @@
             <td><%=movie.getGenre()%></td>
             <td><%=movie.getRuntime()%></td>
             <td><%=movie.getDirector()%></td>
-            <td><%=movie.getRating()%></td>
+            <td><%=movie.getPlaydate().toString()%></td>
         </tr>
         <%
             }
+
+            // movie id, 제목, 감독, 장르, rating, 날짜(string), 런타임
+            movieService.addMovie(
+                    "제목",
+                    "감독",
+                    "장르",
+                    15,
+                    "2017-06-11",
+                    120);
         %>
     </table>
     <form action="reserve.jsp" method="post" class="form-horizontal">
