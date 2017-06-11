@@ -28,19 +28,11 @@ public class ScheduleService {
                             String timeString,
                             String type) {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        try {
-
-            Date date = dateFormat.parse(dateString);
-            Date time = timeFormat.parse(timeString);
-            // DB에 auto increment 안걸려있어서 직접 PK 구함
-            int scheduleId = scheduleDAO.getPK() + 1;
-            Schedule schedule = new Schedule(scheduleId, movieId, theraterId, date, time, type, null);
-            scheduleDAO.insertSchedule(schedule);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date date = getDate(dateString);
+        Date time = getTime(timeString);
+        int scheduleId = scheduleDAO.getPK() + 1;
+        Schedule schedule = new Schedule(scheduleId, movieId, theraterId, date, time, type, null);
+        scheduleDAO.insertSchedule(schedule);
     }
 
     public Schedule updateSchedule(Schedule schedule) {
@@ -53,20 +45,48 @@ public class ScheduleService {
                                    String dateString,
                                    String timeString,
                                    String type) {
+
+        Date date = getDate(dateString);
+        Date time = getTime(timeString);
+
+        return updateSchedule(new Schedule(scheduleId, movieId, theraterId, date, time, type, null));
+    }
+
+
+    public List<Schedule> searchSchedule(String movieName,
+                                         String type,
+                                         String dateString,
+                                         String timeString) {
+
+        Date date = getDate(dateString);
+        Date time = getTime(timeString);
+        return scheduleDAO.searchSchedule(movieName, type, date, time);
+    }
+
+
+    public boolean deleteSchedule(int scheduleId) {
+        return scheduleDAO.deleteSchedule(scheduleId) == 1;
+    }
+
+    private Date getDate(String dateString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         Date date = null;
-        Date time = null;
         try {
             date = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    private Date getTime(String timeString) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        Date time = null;
+        try {
             time = timeFormat.parse(timeString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return updateSchedule(new Schedule(scheduleId, movieId, theraterId, date, time, type, null));
-    }
-
-    public boolean deleteSchedule(int scheduleId) {
-        return scheduleDAO.deleteSchedule(scheduleId) == 1;
+        return time;
     }
 }

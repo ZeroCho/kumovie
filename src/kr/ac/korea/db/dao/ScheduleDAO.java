@@ -120,6 +120,45 @@ public class ScheduleDAO {
         return 0;
     }
 
+    public List<Schedule> searchSchedule(String movieName,
+                                         String type,
+                                         Date date,
+                                         Date time) {
+        Connection conn = Database.getConnection();
+        List<Schedule> scheduleList = new ArrayList<Schedule>();
+        if (conn != null) {
+            try {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM schedule" +
+                        " NATURAL JOIN movie" +
+                        " NATURAL JOIN theater" +
+                        " NATURAL JOIN movie_type" +
+                        " WHERE movie.title = ? " +
+                        " AND schedule.type = ?" +
+                        " AND schedule.date = ?" +
+                        " AND schedule.time = ?" +
+                        " ORDER BY schedule_id ASC");
+                stmt.setString(1, movieName);
+                stmt.setString(2, type);
+                stmt.setDate(3, new java.sql.Date(date.getTime()));
+                stmt.setTime(4, new java.sql.Time(time.getTime()));
+
+                ResultSet result = stmt.executeQuery();
+                while (result.next()) {
+                    scheduleList.add(getScheduleFromResultSet(result));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return scheduleList;
+    }
+
     public int getPK() {
         Connection conn = Database.getConnection();
         int pk = 0;
@@ -142,7 +181,7 @@ public class ScheduleDAO {
         return pk;
     }
 
-    private Schedule getScheduleFromResultSet(ResultSet result) throws SQLException {
+    public static Schedule getScheduleFromResultSet(ResultSet result) throws SQLException {
         int scheduleId = result.getInt("schedule_id");
         int movieId = result.getInt("movie_id");
         int theaterId = result.getInt("theater_id");
@@ -150,7 +189,10 @@ public class ScheduleDAO {
         Date time = result.getDate("time");
         String type = result.getString("type");
         Movie movie = MovieDAO.getMovieFromResultSet(result);
-        return new Schedule(scheduleId, movieId, theaterId, date, time, type, movie);
+        Schedule schedule = new Schedule(scheduleId, movieId, theaterId, date, time, type, movie);
+        schedule.setTheater(TheaterDAO.getTheaterFromResultSet(result));
+        schedule.setMovieType(MovieTypeDAO.getMovieTypeFromResultSet(result));
+        return schedule;
     }
 
 }

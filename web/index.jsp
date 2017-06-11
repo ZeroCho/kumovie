@@ -81,7 +81,7 @@
             %>
         </table>
         <button class="btn btn-success schedule-menu">스케줄 검색</button>
-        <form class="hidden schedule-menu">
+        <form class="hidden schedule-menu" action="searchSchedule.jsp">
             <div class="form-group">
                 <label for="search-name" class="col-sm-2 control-label">영화명</label>
                 <div class="col-sm-10">
@@ -91,13 +91,19 @@
             <div class="form-group">
                 <label for="search-type" class="col-sm-2 control-label">종류</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="search-type" class="form-control">
+                    <input type="text" name="search-type" id="search-type" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="search-date" class="col-sm-2 control-label">상영날짜</label>
+                <div class="col-sm-10">
+                    <input type="text" name="search-date" id="search-date" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label for="search-time" class="col-sm-2 control-label">상영시간</label>
                 <div class="col-sm-10">
-                    <input type="text" name="search-name" id="search-time" class="form-control">
+                    <input type="text" name="search-time" id="search-time" class="form-control">
                 </div>
             </div>
             <button class="btn btn-inverse">검색</button>

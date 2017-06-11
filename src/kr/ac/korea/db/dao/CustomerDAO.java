@@ -61,7 +61,7 @@ public class CustomerDAO {
         return customerList;
     }
 
-    private Customer getCustomerFromResultSet(ResultSet result) throws SQLException {
+    public static Customer getCustomerFromResultSet(ResultSet result) throws SQLException {
         String resultId = result.getString("customer_id");
         String resultPw = result.getString("password");
         String name =  result.getString("name");

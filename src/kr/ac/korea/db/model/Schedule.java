@@ -13,6 +13,8 @@ public class Schedule {
     private Date time;
     private String type;
     private Movie movie;
+    private MovieType movieType;
+    private Theater theater;
 
     public Schedule(int scheduleId,
                     int movieId,
@@ -84,5 +86,21 @@ public class Schedule {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public MovieType getMovieType() {
+        return movieType;
+    }
+
+    public void setMovieType(MovieType movieType) {
+        this.movieType = movieType;
+    }
+
+    public Theater getTheater() {
+        return theater;
+    }
+
+    public void setTheater(Theater theater) {
+        this.theater = theater;
     }
 }
