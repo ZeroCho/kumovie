@@ -30,7 +30,7 @@
         </tr>
 
         <%
-            List<Movie> movieList = movieService.getMovieList();
+            List<Movie> movieList = movieService.getMovieList(5, 0);
             for (Movie movie : movieList) {
         %>
         <tr>

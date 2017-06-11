@@ -24,7 +24,7 @@ public class CustomerService {
         return customer;
     }
 
-    public List<Customer> getCustomerList() {
-        return customerDAO.getCustomerList();
+    public List<Customer> getCustomerList(int limit, int offset) {
+        return customerDAO.getCustomerList(limit, offset);
     }
 }

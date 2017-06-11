@@ -36,12 +36,14 @@ public class CustomerDAO {
         return customer;
     }
 
-    public List<Customer> getCustomerList() {
+    public List<Customer> getCustomerList(int limit, int offset) {
         Connection conn = Database.getConnection();
         List<Customer> customerList = new ArrayList<Customer>();
         if (conn != null) {
             try {
-                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customer");
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customer LIMIT ? OFFSET ?");
+                stmt.setInt(1, limit);
+                stmt.setInt(2, offset);
                 ResultSet result = stmt.executeQuery();
                 while (result.next()) {
                     customerList.add(getCustomerFromResultSet(result));

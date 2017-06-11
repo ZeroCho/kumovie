@@ -14,7 +14,7 @@ public class MovieService {
     public MovieService() {
         movieDAO = new MovieDAO();
     }
-    public List<Movie> getMovieList() {
-        return movieDAO.getMovieList();
+    public List<Movie> getMovieList(int limit, int offset) {
+        return movieDAO.getMovieList(limit, offset);
     }
 }

@@ -12,12 +12,14 @@ import java.util.Date;
  */
 public class MovieDAO {
 
-    public List<Movie> getMovieList() {
+    public List<Movie> getMovieList(int limit, int offset) {
         Connection conn = Database.getConnection();
         List<Movie> movieList = new ArrayList<Movie>();
         if (conn != null) {
             try {
-                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM movie");
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM movie LIMIT ? OFFSET ?");
+                stmt.setInt(1, limit);
+                stmt.setInt(2, offset);
                 ResultSet result = stmt.executeQuery();
                 while (result.next()) {
                     movieList.add(getMovieFromResultSet(result));
