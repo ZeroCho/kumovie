@@ -48,14 +48,15 @@ public class ReservationDAO {
         int count = 0;
         if (conn != null) {
             try {
-                // 해당 스케줄의 예약 갯수를 반환하는 쿼리
-                PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(1) FROM reservation" +
+                // 해당 스케줄의 예약 순서 중 최대값을 반환하는 쿼리
+                PreparedStatement stmt = conn.prepareStatement("SELECT MAX(reservation_order) FROM reservation" +
                         " WHERE schedule_id = ?");
                 stmt.setInt(1, scheduleId);
                 ResultSet result = stmt.executeQuery();
 
                 if (result.next()) {
                     //다음 예약 순서는 현재 최대 예약 순서 + 1
+                    //예약이 없을 경우는 result가 0을 반환하므로 다음 예약 순서가 1이 됨
                     count = result.getInt(1) + 1;
                 }
             } catch (SQLException e) {
