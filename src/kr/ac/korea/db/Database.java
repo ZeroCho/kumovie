@@ -7,6 +7,8 @@ import java.sql.DriverManager;
  * Created by ffaass on 2017-06-11.
  */
 public class Database {
+    // 데이터베이스 connection을 반환하는 메서드
+    // 지정된 id, pw로 데이터베이스에 로그인한 후, DB와 통신할 수 있는 Connection 객체를 반환
     public static Connection getConnection() {
         Connection conn = null;
         try {

@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by ffaass on 2017-06-11.
+ * 고객을 나타내는 객체
  */
 public class Customer {
     private String customerId;

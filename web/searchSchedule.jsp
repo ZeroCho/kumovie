@@ -1,11 +1,15 @@
 <%@ page import="kr.ac.korea.db.service.ScheduleService" %>
 <%@ page import="kr.ac.korea.db.model.Schedule" %>
 <%@ page import="java.util.List" %>
+<%@ page import="kr.ac.korea.db.util.DateUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
     <title>영화예매시스템</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
 </head>
 <body>
 <%
@@ -17,7 +21,6 @@
             request.getParameter("search-date"),
             request.getParameter("search-time")
     );
-    out.println(request.getParameter("search-name"));
 
 %>
 <table class="table table-bordered">
@@ -29,31 +32,25 @@
         <th>날짜</th>
         <th>시간</th>
         <th>상영관</th>
+        <th>좌석수</th>
         <th>영화종류</th>
         <th>가격</th>
     </tr>
     <%
+        //검색 결과로 테이블을 생성
         for (Schedule s : searchResult) {
     %>
     <tr>
-        <td><%= s.getScheduleId() %>
-        </td>
-        <td><%= s.getMovie().getMovieId() %>
-        </td>
-        <td><%= s.getMovie().getDirector() %>
-        </td>
-        <td><%= s.getMovie().getGenre() %>
-        </td>
-        <td><%= s.getDate().toString() %>
-        </td>
-        <td><%= s.getTime().toString() %>
-        </td>
-        <td><%= s.getTheater().getSeatNum() %>
-        </td>
-        <td><%= s.getMovieType().getType() %>
-        </td>
-        <td><%= s.getMovieType().getPrice() %>
-        </td>
+        <td><%= s.getScheduleId() %></td>
+        <td><%= s.getMovie().getTitle() %></td>
+        <td><%= s.getMovie().getDirector() %></td>
+        <td><%= s.getMovie().getGenre() %></td>
+        <td><%= s.getDate().toString() %></td>
+        <td><%=DateUtil.getTimeString(s.getTime()) %></td>
+        <td><%= s.getTheater().getTherterId() %></td>
+        <td><%= s.getTheater().getSeatNum() %></td>
+        <td><%= s.getMovieType().getType() %></td>
+        <td><%= s.getMovieType().getPrice() %></td>
     </tr>
     <%
         }

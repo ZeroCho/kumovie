@@ -2,6 +2,7 @@ package kr.ac.korea.db.model;
 
 /**
  * Created by ffaass on 2017-06-11.
+ * 예약을 나타내는 객체
  */
 public class Reservation {
     private int scheduleId;

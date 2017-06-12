@@ -2,6 +2,7 @@ package kr.ac.korea.db.model;
 
 /**
  * Created by ffaass on 2017-06-11.
+ * 상영관을 나타내는 객체
  */
 public class Theater {
     private int therterId;

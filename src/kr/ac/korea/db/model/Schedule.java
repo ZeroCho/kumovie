@@ -4,6 +4,9 @@ import java.util.Date;
 
 /**
  * Created by ffaass on 2017-06-11.
+ * 영화 스케줄을 나타내는 객체
+ * JOIN 결과로 Movie와 MovieType, Theater를 가져와서 사용할 때가 있어서
+ * Movie, MovieType, Theater 클래스를 멤버 변수로 가지고 있음.
  */
 public class Schedule {
     private int scheduleId;

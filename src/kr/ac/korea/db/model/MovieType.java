@@ -2,6 +2,7 @@ package kr.ac.korea.db.model;
 
 /**
  * Created by ffaass on 2017-06-11.
+ * 영화종류를 나타내는 객체
  */
 public class MovieType {
     private String type;
