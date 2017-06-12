@@ -9,9 +9,13 @@
 <%
     ScheduleService service = new ScheduleService();
 
-    service.deleteSchedule(
-            Integer.parseInt(request.getParameter("remove-scheduleid"))
-    );
+    try {
+        service.deleteSchedule(
+                Integer.parseInt(request.getParameter("remove-scheduleid"))
+        );
+    } catch (Exception e) {
+
+    }
 
     response.sendRedirect("index.jsp");
 %>

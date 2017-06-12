@@ -12,11 +12,17 @@
 <body>
 <%
     ReservationService service = new ReservationService();
-    service.addReservation(
-            request.getParameter("userId"),
-            request.getParameter("pw"),
-            Integer.parseInt(request.getParameter("scheduleId"))
-    );
+
+    try {
+        service.addReservation(
+                request.getParameter("userId"),
+                request.getParameter("pw"),
+                Integer.parseInt(request.getParameter("scheduleId"))
+        );
+    } catch (Exception e) {
+
+    }
+
 
     response.sendRedirect("index.jsp");
 %>

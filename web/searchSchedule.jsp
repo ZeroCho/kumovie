@@ -2,6 +2,7 @@
 <%@ page import="kr.ac.korea.db.model.Schedule" %>
 <%@ page import="java.util.List" %>
 <%@ page import="kr.ac.korea.db.util.DateUtil" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -14,13 +15,18 @@
 <body>
 <%
     ScheduleService service = new ScheduleService();
+    List<Schedule> searchResult = new ArrayList<>();
+    try {
+        searchResult = service.searchSchedule(
+                request.getParameter("search-name"),
+                request.getParameter("search-type"),
+                request.getParameter("search-date"),
+                request.getParameter("search-time")
+        );
+    } catch (Exception e) {
 
-    List<Schedule> searchResult = service.searchSchedule(
-            request.getParameter("search-name"),
-            request.getParameter("search-type"),
-            request.getParameter("search-date"),
-            request.getParameter("search-time")
-    );
+    }
+
 
 %>
 <table class="table table-bordered">

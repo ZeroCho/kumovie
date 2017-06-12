@@ -9,14 +9,19 @@
 <%
     ScheduleService service = new ScheduleService();
 
-    service.updateSchedule(
-            Integer.parseInt(request.getParameter("update-scheduleid")),
-            Integer.parseInt(request.getParameter("update-movieid")),
-            Integer.parseInt(request.getParameter("update-theaterid")),
-            request.getParameter("update-date"),
-            request.getParameter("update-time"),
-            request.getParameter("update-type")
-    );
+    try {
+        service.updateSchedule(
+                Integer.parseInt(request.getParameter("update-scheduleid")),
+                Integer.parseInt(request.getParameter("update-movieid")),
+                Integer.parseInt(request.getParameter("update-theaterid")),
+                request.getParameter("update-date"),
+                request.getParameter("update-time"),
+                request.getParameter("update-type")
+        );
+    } catch (Exception e) {
+
+    }
+
 
     response.sendRedirect("index.jsp");
 %>
